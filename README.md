@@ -4,6 +4,6 @@
 ### How to use 2.28.5
 
 ```shell
-rm -rf feeds/packages/net/alist
-git clone https://github.com/wszx3394/mbedtls feeds/packages/net/alist
+rm -rf package/libs/mbedtls
+git clone https://github.com/wszx3394/mbedtls package/libs/mbedtls
 ```
