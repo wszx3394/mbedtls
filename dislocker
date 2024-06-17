@@ -1,0 +1,46 @@
+include $(TOPDIR)/rules.mk
+
+PKG_NAME:=dislocker
+PKG_VERSION:=0.7.1
+PKG_RELEASE:=1
+
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_URL:=https://github.com/Aorimn/dislocker.git
+PKG_SOURCE_VERSION:=master
+PKG_MAINTAINER:=Your Name <your.email@example.com>
+
+PKG_BUILD_DEPENDS:=libopenssl libfuse
+
+include $(INCLUDE_DIR)/package.mk
+
+define Package/dislocker
+  SECTION:=utils
+  CATEGORY:=Utilities
+  TITLE:=Dislocker - BitLocker decryption tool
+  DEPENDS:=+libfuse +libopenssl
+endef
+
+define Package/dislocker/description
+  Dislocker is a tool to decrypt BitLocker encrypted partitions.
+endef
+
+define Build/Prepare
+	$(Build/Prepare/Default)
+endef
+
+define Build/Configure
+	$(Build/Configure/Default)
+endef
+
+define Build/Compile
+	$(Build/Compile/Default)
+endef
+
+define Package/dislocker/install
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/dislocker-fuse $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/dislocker-file $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/dislocker-metadata $(1)/usr/bin/
+endef
+
+$(eval $(call BuildPackage,dislocker))
